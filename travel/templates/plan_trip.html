@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Plan Trip | Plan Your Way {% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+  .Background {
+    background:url("{% static 'images/plantripbg.webp' %}") center/cover no-repeat;
+  }
+
+  .trip-form-container {
+    max-width: 700px;
+    margin:  auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  }
+
+  /* Base form layout */
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Grid layout */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  /* Full width fields */
+  .form-grid textarea,
+  .form-grid input[type="date"],
+  .form-grid input[type="number"] {
+    grid-column: span 2;
+  }
+
+  /* Input style */
+  .input-field {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  /* Error text */
+  .error-text {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+    grid-column: span 2;
+  }
+
+  /* Button */
+  .submit-btn {
+    margin-top: 1.5rem;
+    padding: 12px 20px;
+    background:white;
+    color: black;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+</style>
+<section>
+  <div class="Background">
+    <div class="trip-form-container">
+      <h2 class="form-title">Plan Your Trip</h2>
+
+      <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="form-container">
+          <div class="form-grid">
+
+            {{ form.name }}
+            {% for error in form.name.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.email }}
+            {% for error in form.email.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.phone }}
+            {% for error in form.phone.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.destination }}
+            {% for error in form.destination.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.start_date }}
+            {% for error in form.start_date.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.end_date }}
+            {% for error in form.end_date.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.budget }}
+            {% for error in form.budget.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.transport }}
+            {% for error in form.transport.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.accommodation }}
+            {% for error in form.accommodation.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.star_rating }}
+            {% for error in form.star_rating.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.special_requests }}
+            {% for error in form.special_requests.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+            {{ form.itinerary }}
+            {% for error in form.itinerary.errors %}<div class="error-text">{{ error }}</div>{% endfor %}
+
+          </div>
+
+          <button type="submit" class="submit-btn">Plan My Trip</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

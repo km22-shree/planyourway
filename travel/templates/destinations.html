@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Destinations | Plan Your Way {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+  <div class="row">
+
+    <!-- Filters Sidebar -->
+    <div class="col-md-3">
+      <h5>Filter Destinations</h5>
+      <form method="get">
+        <div class="mb-2">
+          <label>Country</label>
+          <select name="country" class="form-select">
+            <option value="">All</option>
+            {% for c in countries %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-2">
+          <label>Region</label>
+          <input type="text" name="region" class="form-control">
+        </div>
+        <div class="mb-2">
+          <label>Activity Type</label>
+          <select name="activity" class="form-select">
+            <option value="">All</option>
+            <option value="beach">Beach</option>
+            <option value="adventure">Adventure</option>
+            <option value="cultural">Cultural</option>
+            <option value="kayaking">Kayaking</option>
+            <option value="scenic">Scenic</option>
+            <option value="island">Island</option>
+            <option value="cuisine">Cuisine</option>
+            <option value="festival">Festival</option>
+            <option value="nature">Nature</option>
+            <option value="relaxation">Relaxation</option>
+            <option value="urban">Urban</option>
+            <option value="romantic">Romantic</option>
+            <option value="historical">Historical</option>
+            <option value="spiritual">Spiritual</option>
+            <option value="wellness">Wellness</option>
+           
+          </select>
+
+        </div>
+        <div class="mb-2">
+          <label>Budget (Max)</label>
+          <input type="number" name="budget" class="form-control">
+        </div>
+        <button class="btn btn-primary w-100 mt-2">Apply Filters</button>
+      </form>
+    </div>
+
+    <!-- Destination Cards Grid -->
+    <div class="card col-md-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Destinations</h4>
+
+
+      </div>
+
+      <div class="row g-4">
+        {% for destination in destinations %}
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="card shadow-sm h-100">
+            <img src="{{ destination.image.url }}" class="card-img-top img-fluid rounded mx-auto d-block"
+              alt="{{ destination.travel_destination }}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ destination.travel_destination }}</h5>
+              <p class="card-text"> {{ destination.region }}</p>
+              <p class="mt-auto mb-0"> {{ destination.rating }} ★</p>
+              <a href="{% url 'destination_detail' destination.pk %}" class="btn btn-primary">See detail</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

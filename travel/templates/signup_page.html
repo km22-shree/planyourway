@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Signup | Plan Your Way {% endblock %}
+
+{% block content %}
+
+<style>
+  .cont {
+    display: flex;
+    height: 100vh;
+  }
+
+  .left-side {
+    flex: 1.5;
+    background: url('{% static "images/mountain.jpeg" %}') no-repeat center center;
+    background-size: cover;
+    position: relative;
+  }
+
+  .left-side::before {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .text {
+    position: absolute;
+    color: #fff;
+    top: 30%;
+    left: 10%;
+    font-size: 1.5rem;
+    z-index: 1;
+  }
+
+  .right-side {
+    flex: 1;
+    background-color: #1c3c6b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .form-box {
+    color: white;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .social-icons i {
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .frmbtn {
+    width: 100%;
+    background-color: white;
+    color: #1c3c6b;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+<div class="container cont">
+  <div class="left-side">
+    <div class="text">
+      <h2>TRAVEL IS THE ONLY THING<br>YOU BUY THAT MAKES YOU<br>RICHER</h2>
+    </div>
+  </div>
+  <div class="right-side">
+    <div class="form-box">
+      <h1>SIGNUP </h1>
+      <p>Use your email or social account</p>
+
+      <div class="social-icons" style="display: flex; gap: 15px; align-items: center;">
+   
+  
+    <!-- WhatsApp -->
+    <a href="https://wa.me/1234567890" target="_blank" style="color: white;">
+        <i class="fab fa-whatsapp fa-lg"></i>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/your_instagram_username/" target="_blank" style="color: white;">
+        <i class="fab fa-instagram fa-lg"></i>
+    </a>
+</div>
+
+
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+          {{ form.name }}
+        </div>
+        <div class="mb-3">
+          {{ form.email }}
+        </div>
+        <div class="mb-3">
+          {{ form.password }}
+        </div><br>
+        <button type="submit" class="frmbtn">Signup</button>
+      </form>
+
+
+    </div>
+  </div>
+</div>
+{% endblock %}

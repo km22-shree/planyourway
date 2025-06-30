@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Destination - Details | Plan Your Way{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow mx-auto" style="max-width: 900px;">
+        <div class="row g-0">
+            {% if destination.image %}
+                <div class="col-md-6">
+                <img src="{{ destination.image.url }}" class="img-fluid rounded-start" alt="{{ destination.travel_destination  }}">
+                </div>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h2 class="card-title">{{ destination.travel_destination  }}</h2>
+                    <p class="card-text"><strong>Country:</strong> {{ destination.country }}</p>
+                    <p class="card-text"><strong>Region:</strong> {{ destination.region }}</p>
+                    <p class="card-text"><strong>Activity Type:</strong> {{ destination.activity_type }}</p>
+                    <p class="card-text"><strong>Budget:</strong> {{ destination.budget }} per day</p>
+                    <p class="card-text"><strong>Description:</strong> {{ destination.Description }}</p>
+
+                    <a href="{% url 'destination' %}" class="btn btn-outline-primary mt-3">← Back to Destinations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

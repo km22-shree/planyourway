@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Travel guide| Plan Your Way {% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+   <style>
+     
+        h1, h2 { color: #2c3e50; }
+        section { margin-bottom: 40px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        .fact { font-weight: bold; }
+        .attraction, .food, .accommodation { margin-bottom: 15px; }
+    </style>
+<section>
+        <h2>Overview</h2>
+        <p>{{ destination.intro }}</p>
+        <ul>
+            {% for key, value in destination.facts.items %}
+                <li><span class="fact">{{ key }}:</span> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Top Attractions & Activities</h2>
+        {% for item in destination.attractions %}
+            <div class="attraction">
+                <h3>{{ item.name }} ({{ item.category }})</h3>
+                <p>{{ item.description }}</p>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Local Food & Dining</h2>
+        {% for food in destination.food %}
+            <div class="food">
+                <strong>{{ food.dish }}</strong>: {{ food.description }}
+            </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Accommodation Recommendations</h2>
+        {% for place in destination.accommodation %}
+            <div class="accommodation">
+                <strong>{{ place.name }}</strong> ({{ place.type }}) — {{ place.price }}
+            </div>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>Travel Tips & Essentials</h2>
+        <p>{{ destination.transport }}</p>
+        <p>{{ destination.tips }}</p>
+    </section>
+
+    <section>
+        <h2>Itinerary Suggestions</h2>
+        <ul>
+            <li><strong>1 Day:</strong> {{ destination.itineraries.1_day }}</li>
+            <li><strong>3 Days:</strong> {{ destination.itineraries.3_days }}</li>
+            <li><strong>7 Days:</strong> {{ destination.itineraries.7_days }}</li>
+        </ul>
+    </section>
+
+{% endblock %}

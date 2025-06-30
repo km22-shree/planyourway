@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Plan Your Way {% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+{% block content %}
+<style>
+  .home-icon {
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 50px;
+    text-decoration: non;
+    margin-top: 10px;
+
+  }
+
+  .home-icon a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .about-section {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+.about-section h2 {
+  font-weight: 700;
+  color: #343a40; /* Dark text */
+}
+
+.about-section p {
+  font-size: 1.125rem;
+  color: #495057; /* Medium gray text */
+  line-height: 1.6;
+}
+
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* So users can still click carousel buttons */
+  }
+
+  .carousel-content {
+    background: rgba(34, 29, 29, 0.219);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 800px;
+    pointer-events: auto; /* Re-enable clicks inside content */
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .carousel-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 20px;
+  }
+
+  .carousel-content p {
+    font-size: 1.25rem;
+    color: #f8f9fa;
+    margin-bottom: 30px;
+  }
+
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+</style>
+<section>
+  <!-- Carousel -->
+  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" style="margin-top:-50px; z-index:-1;">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true"
+        aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <video class="d-block w-100" autoplay muted loop  style="z-index: 0;">
+          <source src="{% static 'videos/boat_beach.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="carousel-item">
+        <video class="d-block w-100" autoplay muted loop style="z-index: 0;">
+          <source src="{% static 'videos/glacier_express.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="carousel-item">
+        <video class="d-block w-100" autoplay muted loop style="z-index: 0;">
+          <source src="{% static 'videos/turtle_ocan.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+   <div class="carousel-overlay">
+  <div class="carousel-content">
+    <h1>Adventure Awaits</h1>
+    <p>Plan your perfect journey with expert guidance, stunning destinations, and seamless experiences.</p><br>
+  </div>
+</div>
+
+</section>
+
+<section>
+  <div class="row">
+     <div class="col-4 home-icon">
+      <a href="{% url 'destination' %}">
+      <i class='fas fa-map-marked-alt' style='font-size:36px'></i>
+      <p>top destinations</p>
+    </a>
+
+  </div>
+
+  <div class="col-4 home-icon">
+    <a href="{% url 'plan_trip' %}">
+    <i class='far fa-calendar-check' style='font-size:36px'></i>
+    <p>plan your trip</p>
+    </a>
+  </div>
+  <div class="col-4 home-icon">
+    <a href="{% url 'contact' %}">
+    <i class="bi bi-envelope-fill me-2"  style='font-size:36px'></i>
+    <p> Contect us</p>
+    </a>
+  </div></div>
+</section>
+
+<section>
+  <div class="container py-4">
+
+    <!-- Carousel -->
+    <div id="destinationCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+
+      <div class="carousel-inner position-relative">
+
+        {% for group in destinations_grouped %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="row g-3 align-items-center">
+            
+            <!-- Left Button -->
+            <div class="col-auto d-none d-lg-block">
+              <button class="btn btn-dark" type="button" data-bs-target="#destinationCarousel" data-bs-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+            </div>
+
+            <!-- Destination Cards -->
+            <div class="col px-0">
+              <div class="row g-3 justify-content-center">
+                {% for dest in group %}
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="card h-100 shadow-sm border-0">
+                    <img src="{{ dest.image.url }}" class="card-img-top img-fluid" alt="{{ dest.travel_destination }}">
+                    <div class="card-body text-center">
+                      <h5 class="card-title mb-0">{{ dest.travel_destination }}</h5>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Right Button -->
+            <div class="col-auto d-none d-lg-block">
+              <button class="btn btn-dark" type="button" data-bs-target="#destinationCarousel" data-bs-slide="next">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <!-- Optional: mobile-friendly carousel controls -->
+      <button class="carousel-control-prev d-lg-none" type="button" data-bs-target="#destinationCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next d-lg-none" type="button" data-bs-target="#destinationCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">About Us</h2>
+    <p class="lead text-center mx-auto mb-4" style="max-width: 700px;">
+      Welcome to <strong><b>Plan Your Way</b></strong>, your trusted partner in exploring the world! We are passionate about making travel dreams come true by providing personalized, affordable, and unforgettable travel experiences.
+    </p>
+    <p class="text-center mx-auto mb-4" style="max-width: 700px;">
+      Whether you’re looking for adventure, relaxation, cultural immersion, or a mix of everything, we offer a wide range of carefully curated travel packages, expert tips, and seamless booking options to help you plan your perfect getaway.
+    </p>
+    <p class="text-center mx-auto mb-4" style="max-width: 700px;">
+      Built with the latest technology using Django, our platform ensures a smooth, secure, and user-friendly experience from start to finish. Join thousands of happy travelers who have discovered new destinations and made lifelong memories with us.
+    </p>
+    <p class="text-center mx-auto" style="max-width: 700px;">
+      Let’s start your next journey today!
+    </p>
+    <div class="text-center mt-4">
+  <a href="{% url 'plan_trip' %}" class="btn btn-primary btn-lg">Plan Your Trip</a>
+</div>
+  </div>
+</section>
+
+{% endblock %}
