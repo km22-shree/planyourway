@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'planyourway.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':os.environ.get ( 'project_1'),
-        'USER':os.environ.get( 'root'),
-        'PASSWORD':os.environ.get (''),
-        'HOST': os.environ.get('localhost'),  # or your DB server IP
-        'PORT': os.environ.get('3306'),
+        'NAME':os.environ.get ( 'project_1_dvwm'),
+        'USER':os.environ.get( 'project_1_dvwm_user'),
+        'PASSWORD':os.environ.get ('lQhtFBHPjl8qGOKJ980W6PaxVUrStUDg'),
+        'HOST': os.environ.get('dpg-d1mbp9m3jp1c73ejdq9g-a'),  # or your DB server IP
+        'PORT': os.environ.get('5432'),
         'OPTIONS': {
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
